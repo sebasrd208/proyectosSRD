@@ -1,0 +1,628 @@
+ /*SQL(LENGUAJE DE CONSULTA ESTRUCTURADA)
+Bases de datos: Conjunto de datos relacionados entre sí
+y que son almacenados en tablas
+
+DDL(DATA DEFINITION LENGUAGE): Crear estructuras u objetos
+de nuestras bases de datos
+
+La estructura de una tabla de base de datos relacional es la siguiente:
+- Primary Key(Llave primaria) - ID único de cada registro que se crea.
+- Foreign Key(Llave foránea) - Si es necesario ID proveniente de otra tabl
+- Columnas con diferentes tipos de datos
+
+- NUMBER: Datos númericos tanto enteros como decimales
+- NVARCHAR2: Cadenas de texto o secuencias de carácteres
+
+- Todo tipo de datos NVARCHAR2 necesitamos especificar la cantidad de caracteres
+o su longitud de caracteres
+
+- Iniciar con la creación de un tabla de ALUMNOS
+
+RECOMENDACIÓN: Utilizar mayusculas para las sntencia SQL que veremos a continuación
+para que todo esto se comunique con JAVA, no existen inconvenientes
+*/
+
+-- Crear la esturctura de la tabla 
+CREATE TABLE ALUMNOS(
+ID_ALUMNO NUMBER PRIMARY KEY,
+NOMBRE NVARCHAR2(50),
+FEC_NACIMIENTO DATE,
+GENERO NVARCHAR2(20),
+GRADO NVARCHAR2(30),
+CIUDAD NVARCHAR2(50),
+ESTADO NUMBER);
+
+-- Ver la información de la tabla
+DESCRIBE ALUMNOS;
+
+--Ejemplo de que me equivoque en el nombre
+--Cambiar nombre de la tabla
+
+SELECT NOMBRE, COUNT(NOMBRE) AS AUTOR FROM AUTORES GROUP BY NOMBRE;
+
+CREATE TABLE USUARIOS(
+ID_USUARIO NUMBER PRIMARY KEY,
+USUARIO NVARCHAR2(50),
+CONTRASENA NVARCHAR2(50),
+ESTADO NVARCHAR2(20)
+);
+
+CREATE SEQUENCE USUARIOS_SEQ
+START WITH 1
+INCREMENT BY 1
+MAXVALUE 999
+MINVALUE 1
+NOCYCLE;
+
+DROP SEQUENCE USUARIOS_SEQUENCE;
+
+CREATE OR REPLACE TRIGGER INSERTAR_USUARIOS
+BEFORE INSERT ON USUARIOS FOR EACH ROW BEGIN
+SELECT USUARIOS_SEQ.NEXTVAL INTO:NEW.ID_USUARIO FROM DUAL;
+END;
+
+INSERT INTO USUARIOS(USUARIO, CONTRASENA, ESTADO)
+VALUES('Sebastian', 'SDK24991', 'ADMINISTRADOR');
+
+
+DESCRIBE USUARIOS;
+
+select * from libros order by id_libro;
+
+select * from autores order by id_autor;
+
+DESCRIBE AUTORES;
+
+ALTER TABLE ALUMNOS RENAME TO ESTUDIANTES;
+
+SELECT * FROM TUTORES_ALUMNOS ORDER BY ID_TABLA;
+
+select * from libros order by id_libro;
+DESCRIBE LIBROS;
+select * from autores order by id_autor;
+
+rollback;
+--Eliminar tabla con todos sus datos
+DROP TABLE ESTUDIANTES;
+
+SELECT * FROM TUTORES_ALUMNOS ORDER BY ID_TABLA;
+SELECT * FROM AUTORES ORDER BY ID_AUTOR;
+SELECT * FROM LIBROS WHERE ID_LIBRO=1;
+
+
+--Crear una tabla con la info de las carreras
+CREATE TABLE CARRERAS(
+ID_CARRERA NUMBER PRIMARY KEY,
+NOMBRE NVARCHAR2(50),
+DURACION NVARCHAR2(20),
+AREA NVARCHAR2(30));
+
+DROP TABLE CARRERAS;
+
+--Crear una tabla racional para carreras y alumnos
+CREATE TABLE CARRERA_ALUMNOS(
+CA_ID NUMBER PRIMARY KEY,
+CARRERA_ID NUMBER,
+ALUMNO_ID NUMBER);
+
+SELECT * FROM CARRERA_ALUMNOS ORDER BY CA_ID;
+
+ALTER TABLE CARRARA_ALUMNOS RENAME TO CARRERA_ALUMNOS;
+
+/*RESTIRCCIONES
+- Restricciones del tipo CHECK en la tabla ALUMNO con
+este tipo (se valida que la info que registremos solo
+sean una opciones)
+- EJEMPLO: Crear una restricciones en la columna GENERO
+que solo permita ingresar datos FEMENINO o MASCULINO
+*/
+
+ALTER TABLE ESTUDIANTES ADD CONSTRAINT CHK_GENERO
+CHECK(GENERO IN('HOMBRE', 'MUJER'));
+
+DESCRIBE ESTUDIANTES;
+
+ALTER TABLE ESTUDIANTES DROP CONSTRAINT CHK_GENERO;
+
+/*Restricciones del tipo UNIQUE
+- Nos permite crear restricciones para valores unicos
+que no sean llaves primarias
+- Ejemplo: No se pueden o se deben repetir nombres de
+las carreras*/
+
+ALTER TABLE CARRERAS ADD CONSTRAINT UNQ_NOM_CARRERA
+UNIQUE(NOMBRE);
+
+/*Crear la restriccion de llaves foranes
+ establecen la relación mediante llaves primarias
+ en las tablas cuando una tabla tiene una llave
+ foranea hablemos de una entidad debil porque sus
+ datos dependen de otras tablas*/
+  
+ALTER TABLE CARRERA_ALUMNOS ADD CONSTRAINT FK_ID_CARRERA
+FOREIGN KEY(CARRERA_ID)
+REFERENCES CARRERAS(ID_CARRERA);
+
+ALTER TABLE CARRERA_ALUMNOS ADD CONSTRAINT FK_ID_ALUMNO
+FOREIGN KEY(ALUMNO_ID)
+REFERENCES ESTUDIANTES(ID_ALUMNO);
+
+ALTER TABLE CARRERA_ALUMNOS DROP CONSTRAINT FK_ID_CARRERA;
+ALTER TABLE CARRERA_ALUMNOS DROP CONSTRAINT FK_ID_ALUMNO;
+
+INSERT INTO ESTUDIANTES(NOMBRE, FEC_NACIMIENTO, GENERO, GRADO, CIUDAD, ESTADO)
+VALUES('ROSARIO', '28/04/1998', 'MUJER', 'CUARTO SEMESTRE', 'PUEBLA', 1);
+INSERT INTO ESTUDIANTES (NOMBRE, FEC_NACIMIENTO, GENERO, GRADO, CIUDAD, ESTADO)
+VALUES('SEBASTIAN', '24/01/1999', 'HOMBRE', 'TERCER SEMESTRE', 'PUEBLA', 1);
+INSERT INTO ESTUDIANTES(NOMBRE, FEC_NACIMIENTO, GENERO, GRADO, CIUDAD, ESTADO)
+VALUES('VANESSA', '31/08/2000', 'MUJER', 'SEGUNDO SEMESTRE', 'PUEBLA', 1);
+INSERT INTO ESTUDIANTES(NOMBRE, FEC_NACIMIENTO, GENERO, GRADO, CIUDAD, ESTADO)
+VALUES('ERICK', '28/06/2001', 'HOMBRE', 'PRIMER SEMESTRE', 'PUEBLA', 1);
+INSERT INTO ESTUDIANTES(NOMBRE, FEC_NACIMIENTO, GENERO, GRADO, CIUDAD, ESTADO)
+VALUES('LUIS', '28/06/1996', 'HOMBRE', '1° SEMESTRE', 'PUEBLA', 1);
+
+SELECT SYSDATE FROM DUAL;
+select * from estudiantes;
+/*
+- LA TABLA DUAL: Es una tabla provisional que se crea para consultar los valores, extraerlos y utilizarlos
+desde ahí en caso de ser necesario
+*/
+
+INSERT INTO CARRERAS VALUES(1 , 'DISEÑO DE IMAGEN', '2 SEMESTRES', 'ESTILISMO', 3455.50);
+INSERT INTO CARRERAS VALUES(2 , 'BASE DE DATOS', '2 SEMESTRES', 'INFORMATICA', 1299.99);
+INSERT INTO CARRERAS VALUES(3 , 'ECONOMIA DOMESTICA', '1 SEMESTRE', 'CONTABILIDAD', 1234.98);
+INSERT INTO CARRERAS VALUES(4 , 'PROCESO DE MANUFACTURA', '1 SEMESTRE', 'MECATRÓNICA', 1245.50);
+
+SELECT * FROM CARRERAS ORDER BY ID_CARRERA;
+COMMIT;
+
+INSERT INTO CARRERA_ALUMNOS VALUES(1, 1, 6);
+INSERT INTO CARRERA_ALUMNOS VALUES(2, 3, 8);
+INSERT INTO CARRERA_ALUMNOS VALUES(3, 3, 5);
+
+TRUNCATE TABLE CARRERA_ALUMNOS;
+DELETE FROM CARRERA_ALUMNOS;
+select * from estudiantes;
+
+SELECT * FROM ESTUDIANTES ORDER BY ID_ALUMNO;
+
+SELECT * FROM CARRERAS;
+SELECT * FROM CARRERA_ALUMNOS;
+SELECT * FROM ESTUDIANTES WHERE ID_ALUMNO=1;
+
+CREATE TABLE TUTORES(
+ID_TUTOR NUMBER PRIMARY KEY,
+NOMBRE NVARCHAR2(30),
+EMAIL NVARCHAR2(40),
+CLAVE NVARCHAR2(1),
+CHECK (CLAVE IN('A', 'B', 'C', 'D'))
+);
+
+ALTER TABLE TUTORES ADD CONSTRAINT RESTRING_CLAVE
+CHECK(CLAVE IN('A','B', 'C', 'D'));
+
+--Estos correos son falsos
+INSERT INTO TUTORES (NOMBRE, EMAIL, CLAVE)
+VALUES('ANA BRENDA', 'ana.contreras@hotmail.com', 'A');
+INSERT INTO TUTORES (NOMBRE, EMAIL, CLAVE)
+VALUES('JONNY DEEP', 'jonny.deep@hotmail.com', 'B');
+INSERT INTO TUTORES (NOMBRE, EMAIL, CLAVE)
+VALUES('AYASE HARUKA', 'haruka.ayase@hotmail.com', 'C');
+INSERT INTO TUTORES (NOMBRE, EMAIL, CLAVE)
+VALUES('BENNY EMMANUEL', 'emmanuel.benny253@hotmail.com', 'A');
+
+DELETE FROM TUTORES WHERE ID_TUTOR=24;
+
+SELECT * FROM TUTORES_ALUMNOS;-- ORDER BY ID_TABLA;
+SELECT * FROM TUTORES; --ORDER BY ID_TUTOR;
+SELECT * FROM CARRERA_ALUMNOS;
+
+CREATE TABLE TUTORES_ALUMNOS(
+  ID_TABLA NUMBER PRIMARY KEY,
+  ID_ALUMNO NUMBER,
+  ID_TUTOR NUMBER
+);
+  
+ALTER TABLE TUTORES_ALUMNOS ADD CONSTRAINT RETRING_TUTOR
+FOREIGN KEY(ID_ALUMNO)
+REFERENCES ESTUDIANTES(ID_ALUMNO);
+
+ALTER TABLE TUTORES_ALUMNOS DROP CONSTRAINT RETRING_TUTOR;
+
+INSERT INTO TUTORES_ALUMNOS (ID_ALUMNO, ID_TUTOR)
+VALUES(1, 2);
+INSERT INTO TUTORES_ALUMNOS (ID_ALUMNO, ID_TUTOR)
+VALUES(3, 1);
+INSERT INTO TUTORES_ALUMNOS (ID_ALUMNO, ID_TUTOR)
+VALUES(2, 3);
+
+SELECT * FROM TUTORES;
+SELECT * FROM CARRERAS;
+SELECT * FROM TUTORES_ALUMNOS;
+
+DELETE FROM TUTORES_ALUMNOS;
+/*
+- Crear secuencias
+- Las secuencias son objetos que nos permiten generar valores númericos
+enteros de forma consecutiva con un incremento determinado (1, 2...)
+se utilizan para generar llaves primarias y así asegurarnos que los
+los valores no se repitan
+
+- Crear una secuencia para una tabla que ya tiene valores almacenados
+- EJEMPLO: Crear una secuencia para la tabla alumno
+*/
+
+COMMIT;
+
+select * from estudiantes;
+
+--No puedes repetir los datos al insertar
+INSERT INTO ESTUDIANTES(NOMBRE, FEC_NACIMIENTO, GENERO, GRADO, CIUDAD, ESTADO)
+VALUES('JENNIFER', '01/04/2012', 'MUJER', 'SEXTO SEMESTRE', 'CDMX', 1);
+INSERT INTO ESTUDIANTES(NOMBRE, FEC_NACIMIENTO, GENERO, GRADO, CIUDAD, ESTADO)
+VALUES('IVAN', '22/04/2011', 'HOMBRE', 'SEPTIMO SEMESTRE', 'CDMX', 1);
+INSERT INTO ESTUDIANTES(NOMBRE, FEC_NACIMIENTO, GENERO, GRADO, CIUDAD, ESTADO)
+VALUES('YURIDIA', '12/03/1982', 'MUJER', '8° SEMESTRE', 'JALISCO', 1);
+
+--Guardar hora y fecha en una misma columna/tipo de dato
+INSERT INTO ESTUDIANTES(NOMBRE, FEC_NACIMIENTO, GENERO, GRADO, CIUDAD, ESTADO)
+VALUES('ALEXA', TO_DATE('22/05/2012 09:23:25', 'DD-MM-YYYY HH24:MI:SS'), 'MUJER', 'OCTAVO SEMESTRE', 'CDMX', 1);
+
+--Consulta de determinadas columnas y también consultando la fecha y hora
+SELECT ID_ALUMNO, NOMBRE, TO_CHAR(FEC_NACIMIENTO, 'DD-MM-YYYY HH24:MI:SS') FROM ESTUDIANTES;
+
+--Actualizar los datos
+UPDATE ESTUDIANTES SET CIUDAD='MAZATLAN' WHERE ID_ALUMNO=7;
+UPDATE ESTUDIANTES SET FEC_NACIMIENTO=TO_DATE('24/01/1999 12:01:12', 'DD-MM-YYYY HH24:MI:SS') WHERE ID_ALUMNO=2;
+UPDATE ESTUDIANTES SET FEC_NACIMIENTO=TO_DATE('28/04/2000 12:10:24', 'DD-MM-YYYY HH24:MI:SS'), CIUDAD='MAZATLÁN' WHERE ID_ALUMNO=1;
+
+SELECT * FROM ESTUDIANTES;
+
+--Esta sentencia se puede cumplir siempre y cuando el valor utilizado no este relacionado con la llave foránea
+DELETE FROM ESTUDIANTES WHERE ID_ALUMNO=1;
+
+--Como agregar una tabla que ya cuenta con datos
+ALTER TABLE CARRERAS ADD PRESUPUESTO NUMBER(8, 2);--Se usan parámetros para indicar cuantos números enteros agregar y cuantos decimales
+DESCRIBE CARRERAS;
+
+
+SELECT * FROM CARRERA_ALUMNOS;
+
+--Método para renombrar columnas
+ALTER TABLE CARRERAS RENAME COLUMN PRESUPUESTO TO P_MENSUAL;
+
+--Modificar el tipo de dato de la columna, siempre y cuando no tenga valores
+ALTER TABLE CARRERAS MODIFY P_MENSUAL NVARCHAR2(10);
+ALTER TABLE CARRERAS MODIFY P_MENSUAL NUMBER(8, 2);
+
+DESCRIBE CARRERAS;
+
+SELECT * FROM CARRERAS;
+SELECT * FROM TUTORES_ALUMNOS;
+
+/*--CREAR SECUENCIAS--
+- Las secuencias son objetos que nos permiten generar valores númericos enteros de forma consecutiva
+con un incremento determinado (1, 2...) se utilizan para generar llaves primarias y así asegurarnos
+que los valores no se repitan
+- Crear un secuencia para la tabla que ya tiene valores almacenados
+- EJEMPLO: Crear una secuencia para la tabla alumno(ahora estudiantes)*/
+SELECT * FROM TUTORES_ALUMNOS;
+DESCRIBE TUTORES_ALUMNOS;
+
+CREATE OR REPLACE TRIGGER INSERTAR_LIBRO
+BEFORE INSERT ON LIBROS FOR EACH ROW BEGIN
+SELECT LIBROS_SEQ.NEXTVAL INTO:NEW.ID_LIBRO FROM DUAL;
+END;
+
+select * from libros;
+SELECT * FROM tutores_alumnos;
+
+DROP SEQUENCE ESTUDIANTES_SEQ;
+DROP TRIGGER INSERTAR_ALUMNO;
+
+select * from estudiantes;
+select * from carrera_alumnos;
+
+DELETE FROM ESTUDIANTES WHERE ID_ALUMNO=32;
+
+ALTER SEQUENCE ESTUDIANTE_SEC RENAME TO ESTUDIANTES_SEC;
+commit;
+
+select * from carrera_alumnos;
+
+--ESTUDIANTES
+CREATE SEQUENCE ESTUDIANTES_SEQ
+START WITH 11 -- El valor inicial
+INCREMENT BY 1 -- Incremento secuencial
+MAXVALUE 999 -- El valor máximo al que llegue la secuencia
+MINVALUE 1 -- El valor mínimo con el que inicia la secuencia
+NOCYCLE; -- Indicamos si queremos que se cicle(CYCLE) o no se cicle(NOCYCLE)
+
+CREATE OR REPLACE TRIGGER INSERTAR_ALUMNO
+BEFORE INSERT ON ESTUDIANTES FOR EACH ROW BEGIN
+SELECT ESTUDIANTES_SEQ.NEXTVAL INTO:NEW.ID_ALUMNO FROM DUAL;
+END;
+
+drop trigger insertar_alumno;
+drop sequence estudiantes_seq;
+
+--TUTORES
+CREATE SEQUENCE TUTORES_SEQ
+START WITH 5
+INCREMENT BY 1
+MAXVALUE 999
+MINVALUE 1
+NOCYCLE;
+
+--Trigger o disparador para la tabla TUTORES
+CREATE OR REPLACE TRIGGER INSERTAR_TUTORES -- Creamos o reemplazamos el trigger y su nombre
+BEFORE INSERT ON TUTORES FOR EACH ROW BEGIN -- Donde actúa el trigger(Que tabla)
+SELECT TUTORES_SEQ.NEXTVAL INTO:NEW.ID_TUTOR FROM DUAL; -- Secuencia y columna a insertar
+END;
+
+drop trigger insertar_tutores;
+drop sequence tutores_seq;
+
+
+--TUTORES_ALUMNOS
+CREATE SEQUENCE TU_ALUMNOS_SEC
+START WITH 3
+INCREMENT BY 1
+MAXVALUE 999
+MINVALUE 1
+NOCYCLE;
+
+CREATE OR REPLACE TRIGGER INSERTAR_TU_ALUMNO
+BEFORE INSERT ON TUTORES_ALUMNOS FOR EACH ROW BEGIN
+SELECT TU_ALUMNOS_SEC.NEXTVAL INTO:NEW.ID_TABLA FROM DUAL;
+END;
+
+drop trigger insertar_tu_alumno;
+drop sequence tu_alumnos_sec;
+
+
+--CARRERAS
+CREATE SEQUENCE CARRERAS_SEC
+START WITH 5
+INCREMENT BY 1
+MAXVALUE 999
+MINVALUE 1
+NOCYCLE;
+
+CREATE OR REPLACE TRIGGER INSERTAR_CARRERA
+BEFORE INSERT ON CARRERAS FOR EACH ROW BEGIN
+SELECT CARRERAS_SEC.NEXTVAL INTO:NEW.ID_CARRERA FROM DUAL;
+END;
+
+drop trigger insertar_carrera;
+drop sequence carreras_sec;
+
+
+--CARRERAS_ALUMNOS
+CREATE SEQUENCE CARRERAS_ALUMNO_SEC
+START WITH 4
+INCREMENT BY 4
+MAXVALUE 999
+MINVALUE 1
+NOCYCLE;
+
+CREATE OR REPLACE TRIGGER INSERTAR_CARRERA_ALUMNO
+BEFORE INSERT ON CARRERA_ALUMNOS FOR EACH ROW BEGIN
+SELECT CARRERAS_ALUMNO_SEC.NEXTVAL INTO:NEW.CA_ID FROM DUAL;
+END;
+
+drop trigger insertar_carrera_alumno;
+drop sequence carreras_alumno_sec;
+
+CREATE SEQUENCE LIBROS_SEQ
+START WITH 7
+INCREMENT BY 4
+MAXVALUE 999
+MINVALUE 1
+NOCYCLE;
+
+CREATE OR REPLACE TRIGGER INSERTAR_LIBROS
+BEFORE INSERT ON LIBROS FOR EACH ROW BEGIN
+SELECT LIBROS_SEQ.NEXTVAL INTO:NEW.ID_LIBRO FROM DUAL;
+END;
+
+drop sequence libros_seq;
+drop trigger insertar_libros;
+
+COMMIT;
+
+select * from estudiantes;
+SELECT * FROM CARRERAS;
+
+--SOCIOS
+CREATE SEQUENCE SOCIOS_SEQ
+START WITH 4
+INCREMENT BY 4
+MAXVALUE 999
+MINVALUE 1
+NOCYCLE;
+
+CREATE OR REPLACE TRIGGER INSERTAR_SOCIO
+BEFORE INSERT ON SOCIOS FOR EACH ROW BEGIN
+SELECT SOCIOS_SEQ.NEXTVAL INTO:NEW.ID_SOCIO FROM DUAL;
+END;
+
+drop trigger insertar_socio;
+drop sequence socios_seq;
+
+UPDATE CARRERA_ALUMNOS SET CARRERA_ID=2, ALUMNO=7 WHERE CA_ID=2;
+
+/* -TRIGGERS O DISPARADORES-
+- Son un tipo de dato de proceso almacenado que desencadena un evento, esn este caso, los utilizaremos
+para insertar las llaves primarias.
+- Vamos a comenzar a crear un disparador para la tabla alumno (ahora ESTUDIANTES)
+*/
+
+DROP TRIGGER INSERTAR_TUTORES;
+DROP SEQUENCE TUTORES_SEQ;
+DROP SEQUENCE ESTUDIANTES_SEQ;
+
+
+
+
+-- Probar Insertar un nuevo registro de un alumno
+INSERT INTO ESTUDIANTES(NOMBRE, FEC_NACIMIENTO, GENERO, GRADO, CIUDAD, ESTADO)
+VALUES('CHIZURU', '20/03/1997', 'MUJER', '4° SEMESTRE', 'AKIHABARA, JAPÓN', 1);
+
+SELECT * FROM ESTUDIANTES ORDER BY ID_ALUMNO;
+
+--Como omitir el ID_ALUMNO porque ya tenemos diaparador
+/*PASOS:
+1.- Ingresa los parámetros(Nombre de cada columna descartando el ID)
+2.- Ingresa los elementos descartando tambien el ID
+*/
+INSERT INTO ESTUDIANTES(NOMBRE, FEC_NACIMIENTO, GENERO, GRADO, CIUDAD, ESTADO)
+VALUES('EDWIN', TO_DATE('30/07/1994 04:32:23', 'DD-MM-YYYY HH24:MI:SS'), 'HOMBRE', '5° SEMESTRE', 'TIJUANA', 1);
+
+-- Insertar un nuevo tutor en mi tabla TUTORES
+
+SELECT * FROM TUTORES;
+-- Si aparece el error hazlo varias hasta que llegue al ID que sigue y se inserte dicha fila
+INSERT INTO TUTORES(NOMBRE, EMAIL, CLAVE)-- Correo falso
+VALUES ('JESUS ORTÍZ', 'jesus.ortizFuerzaRegida@gmail.com', 'D');
+
+/*- ROLLBACK: Nos regresa al estado del ultimo COMMIT, es decir, si s¿hiciste un borrado accodental
+este metodo te regresa los elemento borrados, siempre y cuando no hayas confirmado con COMMIT*/
+
+DELETE FROM CARRERA_ALUMNOS;
+ALTER TABLE CARRERA_ALUMNOS DROP CONSTRAINT FK_ID_CARRERA;
+
+ALTER TABLE CARRERA_ALUMNOS ADD CONSTRAINT FK_ID_CARRERA
+FOREIGN KEY(CARRERA_ID)
+REFERENCES CARRERAS(ID_CARRERA);
+
+SELECT * FROM TUTORES_ALUMNOS;
+
+ROLLBACK;
+
+-- Consulta de columnas
+SELECT ID_ALUMNO, NOMBRE, CIUDAD FROM ESTUDIANTES;
+
+SELECT * FROM CARRERAS;
+SELECT * FROM CARRERA_ALUMNOS;
+SELECT * FROM TUTORES_ALUMNOS;
+SELECT * FROM ESTUDIANTES;
+
+-- Consulta de datos utilizando una informacion determinada de una columna(nombre, id, etc)
+SELECT NOMBRE, EMAIL FROM TUTORES WHERE ID_TUTOR=5;
+
+DELETE FROM TUTORES WHERE ID_TUTOR=5;
+
+-- Consulta de columnas usando una condición, tambien pueden ser dos condiciones usando AND
+SELECT NOMBRE, AREA, P_MENSUAL FROM CARRERAS WHERE P_MENSUAL>=1000 AND P_MENSUAL<=1900;
+
+-- Consulta de datos que se encuentren entre un rango específico (BETWEEN)
+SELECT NOMBRE, P_MENSUAL FROM CARRERAS WHERE P_MENSUAL BETWEEN 1000 AND 1500;
+SELECT * FROM ESTUDIANTES;
+
+-- Consultar valores similares 'T%'(Donde empieza la letra) %T (Donde finaliza la letra)
+SELECT * FROM ESTUDIANTES WHERE NOMBRE LIKE '%N';
+
+-- Funciones de agregación
+-- Consultar valor máximo y mínimo de una columna de una tabla
+SELECT MAX(P_MENSUAL) FROM CARRERAS;
+SELECT MIN(P_MENSUAL) FROM CARRERAS;
+
+SELECT P_MENSUAL FROM CARRERAS;
+
+-- Consultar el promedio de una columna
+SELECT AVG(P_MENSUAL) FROM CARRERAS;
+
+-- Consultar la suma de una columna
+SELECT SUM(P_MENSUAL) FROM CARRERAS;
+
+-- Realizar un conteo de valores de una tabla
+SELECT COUNT(ID_ALUMNO) FROM ESTUDIANTES;
+
+-- FUNCION GROUP BY
+/* Esta es útil, la han preguntado en entrevistas para agrupar cuantos elementos hay en la columna 
+por tipo*/
+SELECT COUNT(ID_ALUMNO), GENERO FROM ESTUDIANTES GROUP BY GENERO;
+
+-- Ordenar elementos de una columna de forma ascendente
+SELECT * FROM ESTUDIANTES ORDER BY ID_ALUMNO;
+
+-- Consulta anidada (Consulta dentro de otro)
+-- EJEMPLO: Consulta los registros de las carreras con mayor valor
+SELECT * FROM CARRERAS WHERE P_MENSUAL=(SELECT MAX(P_MENSUAL) FROM CARRERAS);
+
+
+-- CONSULTAR CON JOINS
+-- INNER JOIN: Une una tabla A con una tabla b y las filas coincidentes
+SELECT * FROM CARRERAS;
+SELECT * FROM ESTUDIANTES
+INNER JOIN CARRERA_ALUMNOS
+ON ESTUDIANTES.ID_ALUMNO=CARRERA_ALUMNOS.ALUMNO_ID;
+
+-- FULL OUTER JOIN: Muestra todas las filas de la tabla A y la tabla B
+SELECT * FROM ESTUDIANTES
+FULL OUTER JOIN CARRERA_ALUMNOS
+ON ESTUDIANTES.ID_ALUMNO=CARRERA_ALUMNOS.ALUMNO_ID;
+
+-- RIGHT JOIN: Muestra todas las filas de la tabla A y la tabla B, solo si coinciden con la tabla A
+SELECT * FROM ESTUDIANTES
+RIGHT JOIN CARRERA_ALUMNOS
+ON ESTUDIANTES.ID_ALUMNO=CARRERA_ALUMNOS.ALUMNO_ID;
+
+-- LEFT JOIN: Muestra todas las filas de la tabla A y la tabla B, solo si coinciden con la tabla B
+SELECT * FROM ESTUDIANTES
+LEFT JOIN CARRERA_ALUMNOS
+ON ESTUDIANTES.ID_ALUMNO=CARRERA_ALUMNOS.ALUMNO_ID;
+
+/* Vamos a ver una consulta donde unamos 3 tablas
+ EJEMPLO: ESTUDIANTES, CARRERA_ALUMNOS, CARRERAS*/
+SELECT * FROM ESTUDIANTES
+INNER JOIN CARRERA_ALUMNOS
+ON ESTUDIANTES.ID_ALUMNO=CARRERA_ALUMNOS.ALUMNO_ID
+INNER JOIN CARRERAS
+ON CARRERAS.ID_CARRERA=CARRERA_ALUMNOS.CARRERA_ID;
+
+-- También podemos seleccionar columnas determinadas
+SELECT ESTUDIANTES.ID_ALUMNO, ESTUDIANTES.NOMBRE, ESTUDIANTES.GRADO, 
+CARRERAS.ID_CARRERA, CARRERAS.NOMBRE, CARRERAS.AREA FROM ESTUDIANTES
+INNER JOIN CARRERA_ALUMNOS
+ON ESTUDIANTES.ID_ALUMNO=CARRERA_ALUMNOS.ALUMNO_ID
+INNER JOIN CARRERAS
+ON CARRERAS.ID_CARRERA=CARRERA_ALUMNOS.CARRERA_ID;
+
+/*Tambien podemos utilizar un alias en nuestras tablas para seleccionarlas
+- Al igual para mostrar con otros encabezados en la consulta
+MM.ID_ALUMNO AS MATRICULA */
+/*ENCABEZADO*/
+SELECT MS.ID_CARRERA AS MATRICULA_CARRERA, MM.NOMBRE, MM.GRADO, 
+ MS.NOMBRE AS MATERIA, MS.AREA AS CARRERA FROM ESTUDIANTES MM -- ALIAS
+INNER JOIN CARRERA_ALUMNOS MA
+ON MM.ID_ALUMNO=MA.ALUMNO_ID   
+INNER JOIN CARRERAS MS
+ON MS.ID_CARRERA=MA.CARRERA_ID;
+
+-- Mis ejemplos
+SELECT * FROM ESTUDIANTES
+INNER JOIN CARRERAS
+ON ESTUDIANTES.ID_ALUMNO=CARRERAS.ID_CARRERA;
+
+DELETE FROM CARRERA_ALUMNOS;
+DELETE FROM CARRERAS;
+DELETE FROM TUTORES;
+DELETE FROM TUTORES_ALUMNOS;
+DELETE FROM ESTUDIANTES;
+
+SELECT * FROM CARRERAS ORDER BY ID_CARRERA;
+
+SELECT * FROM ESTUDIANTES
+FULL OUTER JOIN CARRERAS
+ON ESTUDIANTES.ID_ALUMNO=CARRERAS.ID_CARRERA;
+
+create or replace TRIGGER INSERT_CARRERA_ALUMNO
+BEFORE INSERT ON CARRERA_ALUMNOS FOR EACH ROW BEGIN
+SELECT CARRERAS_ALUMNO_SEC.NEXTVAL INTO:NEW.CA_ID FROM DUAL;
+END;
+
+ROLLBACK;
+
+COMMIT;

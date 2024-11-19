@@ -1,0 +1,26 @@
+[
+  {
+    "nom": "Cobadex",
+    "precio": 45.0,
+    "unidad": 3,
+    "id": 1
+  },
+  {
+    "nom": "Ampigrin Adulto",
+    "precio": 100,
+    "unidad": 6,
+    "id": 2
+  },
+  {
+    "nom": "Buscapina",
+    "precio": 25,
+    "unidad": 9,
+    "id": 3
+  },
+  {
+    "nom": "Pepto Bismol",
+    "precio": 10.0,
+    "unidad": 12,
+    "id": 4
+  }
+]
