@@ -274,7 +274,7 @@ public class Login extends javax.swing.JFrame{
                 }
             } else if (tiempo == 5) {
 
-                JOptionPane.showMessageDialog(null, "Superaste la cantidad de intentos, AHORA TE CHINGAS WEY");
+                JOptionPane.showMessageDialog(null, "Superaste la cantidad de intentos, Inténtalo más tarde");
                 usuario.setText("");
                 contrasena.setText("");
                 mostrar.setVisible(false);
