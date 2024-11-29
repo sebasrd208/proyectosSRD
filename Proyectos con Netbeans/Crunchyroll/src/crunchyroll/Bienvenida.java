@@ -138,16 +138,15 @@ package crunchyroll;
                  miLicencia.setTitle("Use Licenses");
                  miLicencia.menu.setSelectedIndex(1);
             }else if(menu.getSelectedItem().equals("日本語")){
-      
-Licencia miLicencia=new Licencia();
-                    miLicencia.setBounds(0, 0, 600, 392);
-                    miLicencia.setVisible(true);
-                    miLicencia.setResizable(false);
-                    miLicencia.setLocationRelativeTo(null);
-                    this.setVisible(false);
-                    ticket.setText("規約と条件");
-                    miLicencia.ticket.setBounds(250, 30, 250, 25);
-                    miLicencia.info.setText("        規約と条件\n"
+                 Licencia miLicencia=new Licencia();
+                 miLicencia.setBounds(0, 0, 600, 392);
+                 miLicencia.setVisible(true);
+                 miLicencia.setResizable(false);
+                 miLicencia.setLocationRelativeTo(null);
+                 this.setVisible(false);
+                 ticket.setText("規約と条件");
+                 miLicencia.ticket.setBounds(250, 30, 250, 25);
+                 miLicencia.info.setText("        規約と条件\n"
                             +"\n         A. CRUNCHYROLL COMPANY の許可なしに、販売または配布を行うことは禁じられています。."
                             +"\n         B. ソース コードまたはグラフィック インターフェースのデザインの変更は禁止されています。,"
                             +"\n         C. 開発者のセバスチャンは、このソフトウェアの誤用について一切の責任を負いません。"
