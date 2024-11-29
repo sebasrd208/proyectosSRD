@@ -133,11 +133,11 @@ package crunchyroll;
                             +"\n        IF YOU DO NOT AGREE TO THESE TERMS, CLICK (I DO NOT ACCEPT) AND DO NOT USE THIS SOFTWARE."
                             +"\n\n        FOR MORE INFORMATION ABOUT OUR SERVICE PRODUCTS, PLEASE"
                             +"\n        VISIT OUR BRANCHES.");
-                    miLicencia.palomita.setText("I "+miLicencia.user+" agree");
-                    miLicencia.aceptar.setText("Continue");
-                    miLicencia.no_aceptar.setText("Not accept");
-                    miLicencia.setTitle("Use Licenses");
-                    miLicencia.menu.setSelectedIndex(1);
+                 miLicencia.palomita.setText("I "+miLicencia.user+" agree");
+                 miLicencia.aceptar.setText("Continue");
+                 miLicencia.no_aceptar.setText("Not accept");
+                 miLicencia.setTitle("Use Licenses");
+                 miLicencia.menu.setSelectedIndex(1);
             }else if(menu.getSelectedItem().equals("日本語")){
       
 Licencia miLicencia=new Licencia();
