@@ -91,11 +91,11 @@ package crunchyroll;
             user=usuario.getText().trim();
             if(menu.getSelectedItem().equals("Español")){
        
-               Licencia miLicencia=new Licencia();
-                    miLicencia.setBounds(0, 0, 600, 392);
-                    miLicencia.setVisible(true);
-                    miLicencia.setResizable(false);
-                    miLicencia.setLocationRelativeTo(null);
+                 Licencia miLicencia=new Licencia();
+                miLicencia.setBounds(0, 0, 600, 392);
+                miLicencia.setVisible(true);
+                miLicencia.setResizable(false);
+                miLicencia.setLocationRelativeTo(null);
                     this.setVisible(false);
                     ticket.setText("TERMINOS Y CONDICIONES");
                     miLicencia.ticket.setBounds(200, 30, 250, 25);
