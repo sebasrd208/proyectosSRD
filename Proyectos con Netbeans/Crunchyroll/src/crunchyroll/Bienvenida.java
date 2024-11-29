@@ -115,14 +115,13 @@ package crunchyroll;
                  miLicencia.menu.setSelectedIndex(0);
                 
             }else if(menu.getSelectedItem().equals("English")){
-              
-Licencia miLicencia=new Licencia();
-                    miLicencia.setBounds(0, 0, 600, 392);
-                    miLicencia.setVisible(true);
-                    miLicencia.setResizable(false);
-                    miLicencia.setLocationRelativeTo(null);
-                    this.setVisible(false);
-                    miLicencia.ticket.setText("Terms and Conditions");
+                 Licencia miLicencia=new Licencia();
+                 miLicencia.setBounds(0, 0, 600, 392);
+                miLicencia.setVisible(true);
+                 miLicencia.setResizable(false);
+                 miLicencia.setLocationRelativeTo(null);
+                 this.setVisible(false);
+                 miLicencia.ticket.setText("Terms and Conditions");
                     miLicencia.ticket.setBounds(200, 30, 250, 25);
                     miLicencia.info.setText("        TERMS AND CONDITIONS\n"
                             +"\n         A. NO SALE OR DISTRIBUTION IS PROHIBITED WITHOUT AUTHORIZATION FROM THE CRUNCHYROLL COMPANY."
