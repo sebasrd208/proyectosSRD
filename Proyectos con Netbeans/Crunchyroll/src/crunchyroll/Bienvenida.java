@@ -156,11 +156,11 @@ package crunchyroll;
                             +"\n        これらの条件に同意しない場合は、[同意しません] をクリックして、このソフトウェアを使用しないでください。"
                             +"\n\n        当社の製品またはサービスの詳細については、"
                             +"\n        当社の支店にアクセスしてください。");
-                    miLicencia.palomita.setText("私 は "+user+" 受け入れます");
-                    miLicencia.aceptar.setText("続く");
-                    miLicencia.no_aceptar.setText("同意しません");
-                    miLicencia.setTitle("ライセンス");
-                    miLicencia.menu.setSelectedIndex(2);
+                 miLicencia.palomita.setText("私 は "+user+" 受け入れます");
+                 miLicencia.aceptar.setText("続く");
+                 miLicencia.no_aceptar.setText("同意しません");
+                 miLicencia.setTitle("ライセンス");
+                 miLicencia.menu.setSelectedIndex(2);
             }
         }else if(s.getSource()==menu){
             if(menu.getSelectedItem().equals("English")){
