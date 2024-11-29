@@ -92,14 +92,14 @@ package crunchyroll;
             if(menu.getSelectedItem().equals("Español")){
        
                  Licencia miLicencia=new Licencia();
-                miLicencia.setBounds(0, 0, 600, 392);
-                miLicencia.setVisible(true);
-                miLicencia.setResizable(false);
-                miLicencia.setLocationRelativeTo(null);
-                    this.setVisible(false);
-                    ticket.setText("TERMINOS Y CONDICIONES");
-                    miLicencia.ticket.setBounds(200, 30, 250, 25);
-                    miLicencia.info.setText("        TERMINOS Y CONDICIONES\n"
+                 miLicencia.setBounds(0, 0, 600, 392);
+                 miLicencia.setVisible(true);
+                 miLicencia.setResizable(false);
+                 miLicencia.setLocationRelativeTo(null);
+                this.setVisible(false);
+                ticket.setText("TERMINOS Y CONDICIONES");
+                miLicencia.ticket.setBounds(200, 30, 250, 25);
+                miLicencia.info.setText("        TERMINOS Y CONDICIONES\n"
                             +"\n         A. PROHIBIDA SU VENTA O DISTRIBUCION SIN AUTORIZACION DE CRUNCHYROLL COMPANY."
                             +"\n         B. PROHIBIDA LA ALTERACION DEL CODIGO FUENTE O DISENO DE LAS INTERFACES GRAFICAS,"
                             +"\n         C. EL DESARROLLADOR SEBASTIAN NO SE HACE RESPONSABLE DEL MAL USO DE ESTE SOFTWARE."
