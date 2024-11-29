@@ -96,9 +96,9 @@ package crunchyroll;
                  miLicencia.setVisible(true);
                  miLicencia.setResizable(false);
                  miLicencia.setLocationRelativeTo(null);
-                this.setVisible(false);
-                ticket.setText("TERMINOS Y CONDICIONES");
-                miLicencia.ticket.setBounds(200, 30, 250, 25);
+                 this.setVisible(false);
+                 ticket.setText("TERMINOS Y CONDICIONES");
+                 miLicencia.ticket.setBounds(200, 30, 250, 25);
                 miLicencia.info.setText("        TERMINOS Y CONDICIONES\n"
                             +"\n         A. PROHIBIDA SU VENTA O DISTRIBUCION SIN AUTORIZACION DE CRUNCHYROLL COMPANY."
                             +"\n         B. PROHIBIDA LA ALTERACION DEL CODIGO FUENTE O DISENO DE LAS INTERFACES GRAFICAS,"
@@ -109,11 +109,11 @@ package crunchyroll;
                             +"\n        SI USTED NO ACEPTA ESTOS TERMINOS, HAGA CLIC EN (NO ACEPTO) Y NO UTILICE ESTE SOFTWARE."
                             +"\n\n        PARA MAYOR INFORMACION SOBRE NUESTROS PRODUCTOS O SERVICIOS, POR FAVOR"
                             +"\n        VISITE NUESTRAS SUCURSALES");
-                    miLicencia.palomita.setText("Yo "+miLicencia.user+" Acepto");
-                    miLicencia.aceptar.setText("Continuar");
-                    miLicencia.no_aceptar.setText("No acepto");
-                    miLicencia.setTitle("Licencias de Uso");
-                    miLicencia.menu.setSelectedIndex(0);
+                 miLicencia.palomita.setText("Yo "+miLicencia.user+" Acepto");
+                 miLicencia.aceptar.setText("Continuar");
+                 miLicencia.no_aceptar.setText("No acepto");
+                 miLicencia.setTitle("Licencias de Uso");
+                 miLicencia.menu.setSelectedIndex(0);
                 
             }else if(menu.getSelectedItem().equals("English")){
               
