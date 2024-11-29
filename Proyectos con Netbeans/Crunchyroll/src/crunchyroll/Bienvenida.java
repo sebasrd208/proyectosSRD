@@ -90,11 +90,8 @@ package crunchyroll;
         if(s.getSource()==boton){
             user=usuario.getText().trim();
             if(menu.getSelectedItem().equals("Español")){
-                if(user.equals("")){
-                    JOptionPane.showMessageDialog(null, "Ingresa tu nombre por favor",
-                            "Mensaje", JOptionPane.INFORMATION_MESSAGE);
-                }else{
-                    Licencia miLicencia=new Licencia();
+       
+Licencia miLicencia=new Licencia();
                     miLicencia.setBounds(0, 0, 600, 392);
                     miLicencia.setVisible(true);
                     miLicencia.setResizable(false);
@@ -117,12 +114,10 @@ package crunchyroll;
                     miLicencia.no_aceptar.setText("No acepto");
                     miLicencia.setTitle("Licencias de Uso");
                     miLicencia.menu.setSelectedIndex(0);
-                }
+                
             }else if(menu.getSelectedItem().equals("English")){
-                if(user.equals("")){
-                    JOptionPane.showMessageDialog(null, "Please enter your name");
-                }else{
-                    Licencia miLicencia=new Licencia();
+              
+Licencia miLicencia=new Licencia();
                     miLicencia.setBounds(0, 0, 600, 392);
                     miLicencia.setVisible(true);
                     miLicencia.setResizable(false);
@@ -145,13 +140,9 @@ package crunchyroll;
                     miLicencia.no_aceptar.setText("Not accept");
                     miLicencia.setTitle("Use Licenses");
                     miLicencia.menu.setSelectedIndex(1);
-                }
             }else if(menu.getSelectedItem().equals("日本語")){
-                if(user.equals("")){
-                    JOptionPane.showMessageDialog(null, "お名前を入力してください", 
-                        "メッセージ", JOptionPane.INFORMATION_MESSAGE);
-                }else{
-                    Licencia miLicencia=new Licencia();
+      
+Licencia miLicencia=new Licencia();
                     miLicencia.setBounds(0, 0, 600, 392);
                     miLicencia.setVisible(true);
                     miLicencia.setResizable(false);
@@ -174,7 +165,6 @@ package crunchyroll;
                     miLicencia.no_aceptar.setText("同意しません");
                     miLicencia.setTitle("ライセンス");
                     miLicencia.menu.setSelectedIndex(2);
-                }
             }
         }else if(s.getSource()==menu){
             if(menu.getSelectedItem().equals("English")){
