@@ -113,7 +113,6 @@ package crunchyroll;
                  miLicencia.no_aceptar.setText("No acepto");
                  miLicencia.setTitle("Licencias de Uso");
                  miLicencia.menu.setSelectedIndex(0);
-                
             }else if(menu.getSelectedItem().equals("English")){
                  Licencia miLicencia=new Licencia();
                  miLicencia.setBounds(0, 0, 600, 392);
